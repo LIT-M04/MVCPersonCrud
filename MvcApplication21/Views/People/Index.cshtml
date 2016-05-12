@@ -1,0 +1,48 @@
+﻿@{
+    Layout = null;
+}
+@using MvcApplication21.Models
+@model IEnumerable<MvcApplication21.Models.Person>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <a href="/people/new" class="btn btn-primary" style="margin-top:40px;">Add Person</a>
+        <table class="table table-hover table-striped table-bordered">
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Age</th>
+                <th>Actions</th>
+            </tr>
+            @foreach (Person person in Model)
+            {
+                <tr>
+                    <td>@person.FirstName</td>
+                    <td>@person.LastName</td>
+                    <td>@person.Age</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <form action="/people/delete" method="POST">
+                                    <input type="hidden" name="personid" value="@person.Id"/>
+                                    <button class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                            <div class="col-md-3">
+                                <a href="/people/edit?personid=@person.Id" class="btn btn-warning">Edit</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>
